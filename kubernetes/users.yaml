@@ -57,7 +57,7 @@ spec:
           image: coastk05396/kub-dep-users:latest
           env:
             - name: MONGODB_CONNECTION_URI
-              value: 'mongodb+srv://root:hsip0607@cluster0.gkt92fv.mongodb.net/k8saws?retryWrites=true&w=majority'
+              value: ${MONGODB_CONNECTION_URI}
             - name: AUTH_API_ADDRESSS
               value: 'auth-service.default:3000'
           volumeMounts:                  #步驟四(Mount Container Volume)
