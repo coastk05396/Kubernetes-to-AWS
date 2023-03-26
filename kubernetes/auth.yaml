@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-service
+spec:
+  selector:
+    app: auth
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth
+  template:
+    metadata:
+      labels:
+        app: auth
+    spec:
+      containers:
+        - name: auth-api
+          image: coastk05396/kub-dep-auth:latest
+          env:
+            - name: TOKEN_KEY
+              value: 'shouldbeverysecure'
+
+
+#emptyDir: it's not working with mutiple pods, when pods removed, the data lost
+# hostpath: 
+# just because a pod is removed, 
+# that also survived pod restarts and multiple pods were able to share one of the same volume.
+# single node only
